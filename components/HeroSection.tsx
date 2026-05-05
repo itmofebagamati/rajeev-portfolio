@@ -163,7 +163,7 @@ export default function HeroSection() {
             </motion.div>
 
             {/* Floating badges */}
-            <motion.div
+            {/*<motion.div
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               style={{
@@ -175,9 +175,9 @@ export default function HeroSection() {
               }}
             >
               Nepal Gov 🇳🇵
-            </motion.div>
+            </motion.div>*/}
 
-            <motion.div
+            {/*<motion.div
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
               style={{
@@ -189,7 +189,7 @@ export default function HeroSection() {
               }}
             >
               B.E. Comp. Eng. 🎓
-            </motion.div>
+            </motion.div>*/}
           </div>
         </motion.div>
       </div>

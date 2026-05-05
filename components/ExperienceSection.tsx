@@ -25,7 +25,7 @@ export default function ExperienceSection() {
                 key={i}
                 initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
+                viewport={{ once: false, margin: "-60px" }}
                 transition={{ delay: i * 0.15, duration: 0.6, ease: "easeOut" }}
                 style={{ position: "relative", marginBottom: "28px" }}
               >
@@ -33,7 +33,7 @@ export default function ExperienceSection() {
                   className="timeline-dot"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   transition={{ delay: i * 0.15 + 0.2, type: "spring", stiffness: 300 }}
                 />
                 <motion.div
@@ -86,7 +86,7 @@ export default function ExperienceSection() {
                     key={tag}
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ delay: 0.3 + i * 0.08 }}
                     whileHover={{ scale: 1.08, borderColor: "#00e5a0" }}
                     style={{

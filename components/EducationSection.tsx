@@ -56,7 +56,7 @@ export default function EducationSection() {
                 key={i}
                 initial={{ opacity: 0, x: 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
+                viewport={{ once: false, margin: "-60px" }}
                 transition={{ delay: i * 0.15, duration: 0.6, ease: "easeOut" }}
                 style={{ position: "relative", marginBottom: "24px" }}
               >
@@ -64,7 +64,7 @@ export default function EducationSection() {
                   className="timeline-dot"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   transition={{ delay: i * 0.15 + 0.2, type: "spring", stiffness: 300 }}
                   style={{ background: TYPE_COLOR[edu.type], boxShadow: `0 0 12px ${TYPE_COLOR[edu.type]}` }}
                 />

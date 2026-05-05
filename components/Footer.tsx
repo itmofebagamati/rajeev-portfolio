@@ -18,7 +18,7 @@ export default function Footer() {
         display: "flex", flexDirection: "column", alignItems: "center", gap: "10px",
       }}>
         <motion.span
-          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }}
           style={{ fontFamily: "'Fira Code', monospace", fontWeight: 700, fontSize: "16px", color: "#00e5a0" }}
         >
           Er.Rajeev

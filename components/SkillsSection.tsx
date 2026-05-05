@@ -23,7 +23,7 @@ export default function SkillsSection() {
               className="skill-box"
               initial={{ opacity: 0, scale: 0.7, y: 20 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ once: false, margin: "-40px" }}
               transition={{ delay: i * 0.06, duration: 0.45, ease: "easeOut" }}
               whileHover={{ scale: 1.1, borderColor: "#00e5a0", backgroundColor: "rgba(0,229,160,0.07)" }}
               whileTap={{ scale: 0.95 }}

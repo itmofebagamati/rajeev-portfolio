@@ -13,7 +13,7 @@ type HiddenVariant = { opacity: number; y?: number; x?: number };
 
 export default function AnimSection({ children, className = "", delay = 0, direction = "up" }: Props) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: false, margin: "-80px" });
   const controls = useAnimation();
 
   const hiddenMap: Record<string, HiddenVariant> = {
@@ -27,8 +27,12 @@ export default function AnimSection({ children, className = "", delay = 0, direc
   const hidden = hiddenMap[direction];
 
   useEffect(() => {
-    if (isInView) controls.start({ opacity: 1, x: 0, y: 0 });
-  }, [isInView, controls]);
+    if (isInView) {
+      controls.start({ opacity: 1, x: 0, y: 0 });
+    } else {
+      controls.start(hidden);
+    }
+  }, [isInView, controls, direction]);
 
   return (
     <motion.div

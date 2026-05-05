@@ -24,7 +24,7 @@ export default function AboutSection() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
                 whileHover={{ boxShadow: "0 0 40px rgba(0,229,160,0.25)" }}
                 style={{
@@ -70,7 +70,7 @@ export default function AboutSection() {
                     key={k}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ delay: 0.15 + i * 0.07, duration: 0.5, ease: "easeOut" }}
                     style={{ display: "flex", gap: "8px", fontSize: "13px", fontFamily: "'Fira Code', monospace" }}
                   >

@@ -1,10 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Let Netlify handle the build — do NOT use output:"export"
-  // Netlify natively supports Next.js via @netlify/plugin-nextjs
-  images: { unoptimized: true },
+  images: {
+    unoptimized: true,
+    remotePatterns: [
+      { protocol: "https", hostname: "cdn.sanity.io" },
+    ],
+  },
   trailingSlash: true,
+  // Tell Next.js not to add trailing slash to studio routes
+  async rewrites() {
+    return [
+      {
+        source: "/studio/:path*",
+        destination: "/studio/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

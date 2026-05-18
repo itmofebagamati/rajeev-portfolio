@@ -24,7 +24,7 @@ export default function Footer() {
           Er.Rajeev
         </motion.span>
         <motion.p
-          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }}
           transition={{ delay: 0.1 }}
           style={{ fontFamily: "'Fira Code', monospace", fontSize: "12px", color: "#8892a4", textAlign: "center" }}
         >

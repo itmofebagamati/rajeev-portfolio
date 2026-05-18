@@ -1,9 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
 import AnimSection from "./AnimSection";
-import { SKILLS } from "@/lib/data";
+import type { SkillItem } from "@/sanity/lib/types";
 
-export default function SkillsSection() {
+export default function SkillsSection({ data }: { data: SkillItem[] }) {
   return (
     <section id="skills" style={{ padding: "96px 32px", background: "var(--bg)" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -17,10 +17,8 @@ export default function SkillsSection() {
         </AnimSection>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))", gap: "14px" }}>
-          {SKILLS.map((skill, i) => (
-            <motion.div
-              key={skill.name}
-              className="skill-box"
+          {data.map((skill, i) => (
+            <motion.div key={skill._id} className="skill-box"
               initial={{ opacity: 0, scale: 0.7, y: 20 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: false, margin: "-40px" }}
@@ -29,9 +27,7 @@ export default function SkillsSection() {
               whileTap={{ scale: 0.95 }}
             >
               <span style={{ fontSize: "32px", lineHeight: 1 }}>{skill.icon}</span>
-              <span style={{ fontFamily: "'Fira Code', monospace", fontSize: "11px", color: "#8892a4", textAlign: "center", lineHeight: 1.3 }}>
-                {skill.name}
-              </span>
+              <span style={{ fontFamily: "'Fira Code', monospace", fontSize: "11px", color: "#8892a4", textAlign: "center", lineHeight: 1.3 }}>{skill.name}</span>
             </motion.div>
           ))}
         </div>

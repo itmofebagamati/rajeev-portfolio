@@ -22,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        {/* Disable browser scroll restoration so animations always start fresh */}
         <script
           dangerouslySetInnerHTML={{
             __html: `

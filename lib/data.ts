@@ -35,6 +35,12 @@ export const EXPERIENCE = [
     org: "Government of Nepal",
     desc: "Delivered computer science and IT courses. Developed curriculum and mentored students in practical computing skills.",
   },
+  {
+    period: "Apr 2019 – May 2024",
+    role: "Instructor",
+    org: "Government of Nepal",
+    desc: "Delivered computer science and IT courses. Developed curriculum and mentored students in practical computing skills.",
+  },
 ];
 
 export const EDUCATION = [

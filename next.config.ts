@@ -4,19 +4,13 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
     remotePatterns: [
-      { protocol: "https", hostname: "cdn.sanity.io" },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
     ],
   },
-  trailingSlash: true,
-  // Tell Next.js not to add trailing slash to studio routes
-  async rewrites() {
-    return [
-      {
-        source: "/studio/:path*",
-        destination: "/studio/:path*",
-      },
-    ];
-  },
+  // Removed trailingSlash — it breaks dynamic routes like /blog/[slug]
 };
 
 export default nextConfig;

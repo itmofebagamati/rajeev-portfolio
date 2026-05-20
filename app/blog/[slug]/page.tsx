@@ -23,7 +23,7 @@ export async function generateStaticParams() {
   if (!client) return [];
   try {
     const posts = await client.fetch<PostPreview[]>(allPostsQuery);
-    return (posts ?? []).map((post) => ({ slug: post.slug?.current }));
+    return (posts ?? []).map((post) => ({ slug: post.slug?.current ?? "" }));
   } catch {
     return [];
   }
@@ -39,11 +39,13 @@ async function getPost(slug: string) {
 }
 
 // Portable Text components for rich content rendering
-const ptComponents = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ptComponents: any = {
   types: {
     image: ({ value }: { value: { asset?: unknown; caption?: string; alt?: string } }) => {
       if (!value?.asset) return null;
       const src = urlFor(value).width(900).url();
+      if (!src) return null;
       return (
         <figure style={{ margin: "2rem 0" }}>
           <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", borderRadius: "10px", overflow: "hidden" }}>
@@ -123,12 +125,20 @@ const ptComponents = {
   },
 };
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug);
+// Next.js 15+ requires params as a Promise
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = await getPost(slug);
 
   if (!post) notFound();
 
-  const coverSrc = post.coverImage ? urlFor(post.coverImage).width(1200).height(630).url() : null;
+  const coverSrc = post.coverImage
+    ? urlFor(post.coverImage).width(1200).height(630).url()
+    : null;
   const catColor = CATEGORY_COLOR[post.category ?? "Other"] ?? "#8892a4";
   const date = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString("en-US", {
@@ -182,7 +192,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         position: "relative", zIndex: 1,
       }}>
 
-        {/* Meta */}
+        {/* Meta badges */}
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "20px" }}>
           {post.category && (
             <span style={{
@@ -240,7 +250,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           </p>
         )}
 
-        {/* External link notice */}
+        {/* External link */}
         {post.externalLink && (
           <div style={{
             padding: "20px 24px", borderRadius: "10px",
@@ -265,11 +275,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         {/* Body content */}
         {post.body && (
           <div style={{ marginTop: "8px" }}>
-            <PortableText value={post.body} components={ptComponents as any} />
+            <PortableText value={post.body} components={ptComponents} />
           </div>
         )}
 
-        {/* Footer */}
+        {/* Footer nav */}
         <div style={{
           marginTop: "60px", paddingTop: "32px",
           borderTop: "1px solid rgba(255,255,255,0.06)",
@@ -279,7 +289,6 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           <Link href="/blog" style={{
             fontFamily: "'Fira Code', monospace", fontSize: "13px",
             color: "#00e5a0", textDecoration: "none",
-            display: "flex", alignItems: "center", gap: "8px",
           }}>
             ← Back to all posts
           </Link>

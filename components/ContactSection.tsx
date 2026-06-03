@@ -9,34 +9,44 @@ export default function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [state, setState] = useState<FormState>("idle");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setState("submitting");
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setState("submitting");
 
-    try {
-      const res = await fetch("https://formspree.io/f/mojrelvo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+  try {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: "f7402f0b-4890-4f57-9b7c-1554efa4ea3e",
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message,
+        from_name: "Rajeev Portfolio Contact Form",
+      }),
+    });
 
-      if (res.ok) {
-        setState("success");
-        setForm({ name: "", email: "", subject: "", message: "" });
-        setTimeout(() => setState("idle"), 7000);
-      } else {
-        setState("error");
-        setTimeout(() => setState("idle"), 6000);
-      }
-    } catch (err) {
-      console.error("Form error:", err);
+    const data = await res.json();
+
+    if (data.success) {
+      setState("success");
+      setForm({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setState("idle"), 7000);
+    } else {
+      console.error("Form error:", data);
       setState("error");
       setTimeout(() => setState("idle"), 6000);
     }
-  };
+  } catch (err) {
+    console.error("Form exception:", err);
+    setState("error");
+    setTimeout(() => setState("idle"), 6000);
+  }
+};
 
   const inputStyle: React.CSSProperties = {
     width: "100%",

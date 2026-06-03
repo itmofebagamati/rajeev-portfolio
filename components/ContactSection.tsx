@@ -22,14 +22,34 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       },
       body: JSON.stringify({
         access_key: "f7402f0b-4890-4f57-9b7c-1554efa4ea3e",
+        subject: `New Contact from ${form.name} — ${form.subject}`,
+        from_name: "Rajeev Portfolio",
         name: form.name,
         email: form.email,
-        subject: form.subject,
+        enquiry_subject: form.subject,
         message: form.message,
-        from_name: "Rajeev Portfolio Contact Form",
+        to: "rajeev.sah@nepal.gov.np",
+        replyto: form.email,
       }),
     });
 
+    const data = await res.json();
+
+    if (data.success) {
+      setState("success");
+      setForm({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setState("idle"), 7000);
+    } else {
+      console.error("Form error:", data);
+      setState("error");
+      setTimeout(() => setState("idle"), 6000);
+    }
+  } catch (err) {
+    console.error("Form exception:", err);
+    setState("error");
+    setTimeout(() => setState("idle"), 6000);
+  }
+};
     const data = await res.json();
 
     if (data.success) {

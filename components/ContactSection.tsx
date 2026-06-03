@@ -14,17 +14,13 @@ export default function ContactSection() {
     setState("submitting");
 
     try {
-      // Netlify Forms requires posting to the page URL the form lives on
-      // with content-type application/x-www-form-urlencoded
-      const body = new URLSearchParams({
-        "form-name": "contact",
-        ...form,
-      });
-
-      const res = await fetch(window.location.pathname, {
+      const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(form),
       });
 
       if (res.ok) {
@@ -32,12 +28,11 @@ export default function ContactSection() {
         setForm({ name: "", email: "", subject: "", message: "" });
         setTimeout(() => setState("idle"), 7000);
       } else {
-        console.error("Form error:", res.status, res.statusText);
         setState("error");
         setTimeout(() => setState("idle"), 6000);
       }
     } catch (err) {
-      console.error("Form exception:", err);
+      console.error("Form error:", err);
       setState("error");
       setTimeout(() => setState("idle"), 6000);
     }
@@ -125,20 +120,7 @@ export default function ContactSection() {
               </div>
             )}
 
-            {/*
-              IMPORTANT: These hidden fields are what Netlify's bot reads
-              at build time to register the form. Do not remove them.
-            */}
-            <form
-              name="contact"
-              method="POST"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-              onSubmit={handleSubmit}
-            >
-              <input type="hidden" name="form-name" value="contact" />
-              <input type="hidden" name="bot-field" />
-
+            <form onSubmit={handleSubmit}>
               <input
                 type="text" name="name" placeholder="// Your Name" required
                 style={inputStyle}
@@ -175,7 +157,10 @@ export default function ContactSection() {
                 type="submit"
                 disabled={state === "submitting"}
                 className="btn-outline"
-                style={{ opacity: state === "submitting" ? 0.6 : 1, cursor: state === "submitting" ? "not-allowed" : "pointer" }}
+                style={{
+                  opacity: state === "submitting" ? 0.6 : 1,
+                  cursor: state === "submitting" ? "not-allowed" : "pointer",
+                }}
               >
                 {state === "submitting" ? "Sending..." : "Send Message →"}
               </button>

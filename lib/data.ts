@@ -62,12 +62,6 @@ export const EDUCATION = [
     institution: "C.T.E.V.T.",
     type: "Diploma",
   },
-    {
-    period: "2000 – 2009",
-    degree: "Schooling From Sarlahi",
-    institution: "C.T.E.V.T.",
-    type: "Diploma",
-  },
 ];
 
 export const SERVICES = [
